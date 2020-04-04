@@ -29,8 +29,8 @@ namespace RegionsAPI.Controllers
             List<Region> regions = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\regions.csv")
                                            .Select(v => Region.FromCsv(v))
                                            .ToList();
-            List<Region> employees = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\employees.csv")
-                                           .Select(v => Region.FromCsv(v))
+            List<Employee> employees = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\employees.csv")
+                                           .Select(v => Employee.FromCsv(v))
                                            .ToList();
             return regions.Where(x=>x.ID == ID);
 
