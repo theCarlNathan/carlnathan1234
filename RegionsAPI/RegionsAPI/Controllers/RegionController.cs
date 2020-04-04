@@ -13,19 +13,14 @@ namespace RegionsAPI.Controllers
         // GET api/values
         public IEnumerable<Region> Get()
         {
-            //return new string[] { "Carl", "Nathan", "Mier" };
-
             List<Region> regions = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\regions.csv")
                                            .Select(v => Region.FromCsv(v))
                                            .ToList();
             return regions;
-
         }
 
         public IEnumerable<Employee> Get(string ID)
         {
-            //return new string[] { "Carl", "Nathan", "Mier" };
-
             List<Region> regions = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\regions.csv")
                                            .Select(v => Region.FromCsv(v))
                                            .ToList();
@@ -36,11 +31,6 @@ namespace RegionsAPI.Controllers
             List<Employee> employeesToReturn = new List<Employee>();
             
             return getAllEmployees(ID, regions, employees);
-
-
-
-            return employeesToReturn;
-            //return regions.Where(x=>x.ID == ID);
 
         }
 
@@ -68,12 +58,6 @@ namespace RegionsAPI.Controllers
             return employeesToReturn;
             //throw new NotImplementedException();
         }
-
-        // GET api/values/5
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
 
         // POST api/values
         public void Post([FromBody]string value)
