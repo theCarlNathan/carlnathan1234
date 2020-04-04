@@ -22,7 +22,7 @@ namespace RegionsAPI.Controllers
 
         }
 
-        public IEnumerable<Region> Get(string ID)
+        public IEnumerable<Employee> Get(string ID)
         {
             //return new string[] { "Carl", "Nathan", "Mier" };
 
@@ -32,8 +32,30 @@ namespace RegionsAPI.Controllers
             List<Employee> employees = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\employees.csv")
                                            .Select(v => Employee.FromCsv(v))
                                            .ToList();
-            return regions.Where(x=>x.ID == ID);
 
+            List<Employee> employeesToReturn = new List<Employee>();
+            
+            return getAllEmployees(ID, regions, employees);
+
+
+
+            return employeesToReturn;
+            //return regions.Where(x=>x.ID == ID);
+
+        }
+
+        private IEnumerable<Employee> getAllEmployees(string regionID,List<Region> regions, List<Employee> employees)
+        {
+            var employeesToReturn = new List<Employee>();
+            foreach (var employee in employees.Where(x => x.Region == regionID).ToList())
+            {
+                employeesToReturn.Add(employee);
+                //an extra step is to remove the employee from the list
+                employees.Remove(employee);
+            }
+
+            return employeesToReturn;
+            //throw new NotImplementedException();
         }
 
         // GET api/values/5
