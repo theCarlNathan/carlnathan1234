@@ -54,6 +54,16 @@ namespace RegionsAPI.Controllers
                 employees.Remove(employee);
             }
 
+            //List<string> regions = 
+            //extract the regions
+            foreach(var region in regions.Where(x => x.ParentID == regionID).ToList())
+            {
+                employeesToReturn.AddRange(getAllEmployees(region.ID, regions, employees));
+
+                //remove the region from the list
+                regions.Remove(region);
+            }
+
             return employeesToReturn;
             //throw new NotImplementedException();
         }
