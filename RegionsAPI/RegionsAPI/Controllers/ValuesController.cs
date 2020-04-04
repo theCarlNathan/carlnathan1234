@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace RegionsAPI.Controllers
 {
-    public class ValuesController : ApiController
+    public class RegionController : ApiController
     {
         // GET api/values
         public IEnumerable<Region> Get()
@@ -22,11 +22,25 @@ namespace RegionsAPI.Controllers
 
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        public IEnumerable<Region> Get(string ID)
         {
-            return "value";
+            //return new string[] { "Carl", "Nathan", "Mier" };
+
+            List<Region> regions = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\regions.csv")
+                                           .Select(v => Region.FromCsv(v))
+                                           .ToList();
+            List<Region> employees = File.ReadAllLines("D:\\SourceCodes\\cleverBit\\cleverbitTask\\RegionsAPI\\RegionsAPI\\employees.csv")
+                                           .Select(v => Region.FromCsv(v))
+                                           .ToList();
+            return regions.Where(x=>x.ID == ID);
+
         }
+
+        // GET api/values/5
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST api/values
         public void Post([FromBody]string value)
@@ -59,6 +73,26 @@ namespace RegionsAPI.Controllers
             region.ID = values[1];
             region.ParentID = values[2];
             return region;
+        }
+
+    }
+
+    public class Employee
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Region { get; set; }
+
+        public static Employee FromCsv(string csvLine)
+        {
+            string[] values = csvLine.Split(',');
+            Employee employee = new Employee();
+
+            employee.Region = values[0];
+            employee.FirstName = values[1];
+            employee.LastName = values[2];
+            return employee;
+           
         }
 
     }
